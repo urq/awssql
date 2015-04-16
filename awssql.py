@@ -8,16 +8,17 @@ from awssql import requests
 from awssql import schemas
 from awssql import utility
 
-def insert_instances(instances):
-    tablename = 'instances'
+def insert_table(tablename, items):
     conn = db.create_db()
-    db.create_table(conn, tablename, schemas.INSTANCE)
-    for instance in instances:
-        db.insert_item(conn, tablename, utility.object_to_tabular(instance, schemas.INSTANCE))
+    schema = schema.get_schema(tablename)
+    db.create_table(conn, tablename, schema)
+    for item in items:
+        db.insert_item(conn, tablename, utility.object_to_tabular(item, ))
     conn.commit()
     return conn
 
 if __name__ == '__main__':
     _, env, q = sys.argv
-    conn = insert_instances(requests.get_instances(*utility.load_keys(env)))
+    for table in
+    conn = insert_table(tablename, requests.get_instances(*utility.load_keys(env)))
     utility.format_table(db.query(conn, q))

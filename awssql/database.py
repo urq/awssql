@@ -1,5 +1,5 @@
-
 import sqlite3
+
 def create_db():
     """returns an in-memory sqllitedb"""
     return sqlite3.connect(":memory:")
