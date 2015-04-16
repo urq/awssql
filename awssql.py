@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# from __future__ import print_function
 
 import sys
 from awssql import cache
@@ -8,17 +9,24 @@ from awssql import requests
 from awssql import schemas
 from awssql import utility
 
-def insert_table(tablename, items):
-    conn = db.create_db()
-    schema = schema.get_schema(tablename)
+conn = db.create_db()
+
+def insert_table(conn, tablename, items):
+    schema = schemas.get_schema(tablename)
     db.create_table(conn, tablename, schema)
     for item in items:
-        db.insert_item(conn, tablename, utility.object_to_tabular(item, ))
+        db.insert_item(conn, tablename, utility.object_to_tabular(item, schema))
     conn.commit()
-    return conn
+
+
+def figure_out_type(tablename, items):
+    schema = schemas.get_schema(tablename)
+    for item in items:
+        print utility.object_type(item, schema)
+
 
 if __name__ == '__main__':
     _, env, q = sys.argv
-    for table in
-    conn = insert_table(tablename, requests.get_instances(*utility.load_keys(env)))
-    utility.format_table(db.query(conn, q))
+    # tables = query_parser.extract_tables(q)
+    # for t in tables:
+    #     figure_out_type(t, requests.get(t, *utility.load_keys(env)))
