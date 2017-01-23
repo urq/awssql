@@ -1,0 +1,48 @@
+Tables
+======
+
+A table is a line oriented set of strings of the following form:
+* One line of headers delimited by `delimiter` (a `tab` by default).
+* Zero or more lines of data delimited by `delimiter`.
+Should we have an optional typing mechanism in the header? How much benefit does that add?
+
+Examples
+========
+# how many instances are in the VPC 'vpc-00028f24'?
+get ec2_instances | filter VpcId == vpc-00028f24 | agg count
+
+# how many m4.larges are in the VPC 'vpc-00028f24'?
+get ec2_instances | filter VpcId == vpc-00028f24 and InstanceType == m4.large | agg count
+
+# how many of each instance type are in the VPC 'vpc-41928f24'?
+get ec2_instances | filter VpcId == vpc-00028f24 | group_by InstanceType | agg count
+
+Functions
+=========
+
+get <table>
+This command pulls down informaton on the specified table, according to a configuration.
+The configuration includes options for:
+* accessing one more accounts
+* caching TTL
+
+select <cols>
+
+map <cols> <function>
+
+filter <cols> <function>
+
+group_by <
+
+cache
+
+join
+
+rename
+
+pprint
+
+cols = names or indexes
+
+json_to_tabular
+
